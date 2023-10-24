@@ -4,25 +4,24 @@
 const mongoose = require("mongoose");
 const { Schema, model } = require("mongoose");
 
-// Iteration 2
+// Iteration 5
 // CREATE A SCHEMA - defines the shape of the documents
-
-const celebritySchema = new mongoose.Schema(
+const movieSchema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
     },
-    occupation: {
+    genre: {
       type: String,
       required: true,
     },
-    catchPhrase: {
+    plot: {
       type: String,
       required: true,
     },
     //ref: model name
-    movie: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
+    cast: [{ type: Schema.Types.ObjectId, ref: "Celebrity", required: true }],
   },
   {
     timestamps: true,
@@ -30,7 +29,7 @@ const celebritySchema = new mongoose.Schema(
 );
 
 // CREATE THE MODEL
-const Celebrity = mongoose.model("Celebrity", celebritySchema);
+const Movie = mongoose.model("Movie", movieSchema);
 
 // EXPORT THE MODEL
-module.exports = Celebrity;
+module.exports = Movie;

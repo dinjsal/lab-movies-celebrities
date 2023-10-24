@@ -15,13 +15,4 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
-//router for each hbs file, celebrities and movies folders
-// new-celebrity.hbs
-
-// new-movie.hbs
-
-// movie-details.hbs
-
-// edit-movie.hbs
-
 module.exports = router;

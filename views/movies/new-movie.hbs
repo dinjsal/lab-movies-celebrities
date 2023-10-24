@@ -1,0 +1,27 @@
+{{!-- Iteration 6 --}}
+
+<h2>Add a Movie</h2>
+<form action="/movies/create" method="POST">
+    <label for="title">Movie Title:
+        <input type="text" name="title" id="title" autofocus />
+    </label>
+
+    <label for="genre">Genre:
+        <input type="text" name="genre" id="genre" />
+    </label>
+
+    <label for="plot">Plot:
+        <input type="text" name="plot" id="plot" />
+    </label>
+
+{{!-- this is problematic, cast as in the property in the model --}}
+    <label for="cast">Choose Cast:</label> 
+        <select name="cast" id="cast" multiple>
+            {{#each celebrities}}
+                <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+            
+    <button type="submit">Add Movie</button>
+
+</form>

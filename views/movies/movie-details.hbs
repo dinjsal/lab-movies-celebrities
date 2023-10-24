@@ -1,0 +1,27 @@
+{{!-- Iteration 8, probably everything here is wrong --}}
+
+{{#each movies}}
+
+<h2>{{this.title}}</h2>
+
+<div>
+    <p>Genre: {{this.genre}}</p>
+    <p>Plot: {{this.plot}}</p>
+    <p>Cast: </p>
+    
+    {{!-- probably incorrect syntax --}}
+
+    <p>Celebrity Name: {{this.cast.name}}</p>
+    <p>Occupation: {{this.cast.occupation}}</p>
+    <p>Catch Phrase: {{this.cast.catchPhrase}}</p>
+     
+</div>
+
+<div>
+    <form action="/movies/{{this._id}}/delete" method="POST">
+    <button>Delete
+    </button>     
+    </form>
+
+</div>
+{{/each}}
