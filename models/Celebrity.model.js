@@ -19,7 +19,7 @@ const celebritySchema = new mongoose.Schema(
     },
     catchPhrase: {
       type: String,
-      required: true,
+      required: false,
     },
     //ref: model name
     movie: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
