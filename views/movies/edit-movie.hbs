@@ -1,24 +1,26 @@
-<h2>Edit a Movie</h2>
+<h2>Edit Movie: {{movies.title}}</h2>
 
-<form action="/movies/{{movies._id}}" method="POST">
+<form method="POST" action="/movies/{{movies._id}}/edit">
+    <label for="title">Movie Title:
+        {{!-- have the info pre-populated by giving a dynamic value --}}
+        <input type="text" name="title" value="{{movies.title}}" />
+    </label>
 
-    <label for="title">Movie Title:</label>
-        <input type="text" name="title" id="title" autofocus />
+    <label for="genre">Genre:
+        <input type="text" name="genre" value="{{movies.genre}}" />
+    </label>
 
-    <label for="genre">Genre:</label>
-        <input type="text" name="genre" id="genre" />
+    <label for="plot">Plot:
+        <input type="text" name="plot" value="{{movies.plot}}" />
+    </label>
 
-    <label for="plot">Plot:</label>
-        <input type="text" name="plot" id="plot" />
-
-    {{!-- this is problematic --}}
-    <label for="cast">Choose Cast: </label>
+    <label for="cast">Choose Cast:</label> 
         <select name="cast" id="cast" multiple>
-            {{#each movies}}
-            <option value="{{ this.cast._id }}">{{ this.cast.name }}</option> 
+            {{#each allCelebs}}
+                <option value="{{this._id}}">{{this.name}}</option>
             {{/each}}
         </select>
-
-        <button type="submit">Edit Movie</button>
+            
+    <button type="submit">Edit</button>
 
 </form>

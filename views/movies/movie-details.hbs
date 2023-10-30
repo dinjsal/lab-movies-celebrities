@@ -14,17 +14,12 @@
     {{/each}}
     </ul>
 </div>
-<div>
-    <form action="/movies/{{movies._id}}/edit" method="POST">
-    <button>Edit
-    </button>     
-    </form>
-</div>
-<br>
-<div>
-    <form action="/movies/{{movies._id}}/delete" method="POST">
-    <button>Delete
-    </button>     
-    </form>
-</div>
 
+<form action="/movies/{{movies._id}}/delete" method="POST">
+<button>Delete
+</button>     
+</form>
+
+<a href="/movies/{{movies._id}}/edit" method="POST">
+Edit
+</a>   

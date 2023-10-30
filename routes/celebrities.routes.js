@@ -42,7 +42,7 @@ router.get("/celebrities", (req, res, next) => {
 // bonus iteration
 
 router.get("/celebrities/:id", (req, res, next) => {
-  Celebrity.findById(req.params.id)
+  Celebrity.findById(req.params)
     .populate("movie")
     .then((response) => {
       res.render("celebrities/celebrity-details", { celebrity: response });

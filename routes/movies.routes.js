@@ -19,7 +19,6 @@ router.get("/movies/create", (req, res, next) => {
 
 // Iteration 6
 
-// fix this
 router.post("/movies/create", (req, res, next) => {
   const newMovie = req.body;
   Movie.create(newMovie)
@@ -73,17 +72,25 @@ router.post("/movies/:id/delete", (req, res, next) => {
 
 // Iteration 10
 
-// router.get("/movies/:id/edit", (req, res, next) => {
-//   const movieId = req.params.id;
-//   Movie.findById(movieId)
-//     // Celebrity.find()
-//     .then((response) => {
-//       console.log(response);
-//       res.render("movies/edit-movie", { movie: response });
-//     })
-//     .catch((err) => console.log(err));
-// });
+router.get("/movies/:id/edit", (req, res, next) => {
+  const movieId = req.params.id;
+  Movie.findById(movieId)
+    .populate("cast")
+    .then((response) => {
+      console.log(response);
+      res.render("movies/edit-movie", { movies: response });
+    })
+    .catch((err) => console.log(err));
+});
 
-// YOU ALSO NEED A POST ROUTE
+router.post("/movies/:id/edit", (req, res, next) => {
+  const movieId = req.params.id;
+  // findByIdAndUpdate needs 2 arguments (which movie you want changed, which do you want changed)
+  // PLUS A 3RD ARGUMENT: {new: true}
+  Movie.findByIdAndUpdate(movieId, req.body, {
+    new: true,
+  });
+  res.redirect("/movies");
+});
 
 module.exports = router;
