@@ -73,17 +73,6 @@ router.post("/movies/:id/delete", (req, res, next) => {
 
 // Iteration 10
 
-// router.get("/movies/:id/edit", (req, res, next) => {
-//   const movieId = req.params.id;
-//   Movie.findById(movieId)
-//     .populate("cast")
-//     .then((response) => {
-//       console.log(response);
-//       res.render("movies/edit-movie", { movies: response });
-//     })
-//     .catch((err) => console.log(err));
-// });
-
 router.get("/movies/:id/edit", async (req, res) => {
   const movies = await Movie.findById(req.params.id);
   const allCelebs = await Celebrity.find();

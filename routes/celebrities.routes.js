@@ -39,7 +39,7 @@ router.get("/celebrities", (req, res, next) => {
 });
 
 // populate with "movie" , property from Movie.model
-// bonus iteration
+// Bonus iteration: Show celebrity details
 
 router.get("/celebrities/:id", (req, res, next) => {
   Celebrity.findById(req.params.id)
@@ -48,6 +48,48 @@ router.get("/celebrities/:id", (req, res, next) => {
       res.render("celebrities/celebrity-details", { celebrity: response });
     })
     .catch((err) => console.log(err));
+});
+
+// Bonus iteration: Edit a celebrity
+
+router.get("/celebrities/:id/edit", (req, res, next) => {
+  Celebrity.findByIdAndUpdate(req.params.id)
+    .then((response) => {
+      res.render("celebrities/edit-celebrity", { celebrity: response });
+    })
+    .catch((err) => console.log(err));
+});
+
+// Bonus iteration: Edit a celebrity
+
+router.post("/celebrities/:id/edit", (req, res, next) => {
+  const celebrityId = req.params.id;
+  const { name, occupation, catchPhrase } = req.body;
+  // findByIdAndUpdate needs 2 arguments (which movie you want changed, which info do you want changed)
+  // PLUS A 3RD ARGUMENT: {new: true}. Otherwise data won't get updated
+  Celebrity.findByIdAndUpdate(
+    celebrityId,
+    { name, occupation, catchPhrase },
+    {
+      new: true,
+    }
+  )
+    .then((response) => {
+      console.log(response);
+      res.redirect(`/celebrities/${celebrityId}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// Bonus iteration: Delete a celebrity
+
+router.post("/celebrities/:id/delete", (req, res, next) => {
+  const celebrityId = req.params.id;
+  Celebrity.findByIdAndDelete(celebrityId)
+    .then(() => res.redirect("/celebrities"))
+    .catch((error) => next(error));
 });
 
 module.exports = router;

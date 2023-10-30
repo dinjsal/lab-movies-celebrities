@@ -1,0 +1,19 @@
+<h2>Edit Celebrity Details: {{celebrity.name}}</h2>
+
+<form method="POST" action="/celebrities/{{celebrity._id}}/edit">
+    <label for="name">Celebrity Name:
+        {{!-- have the info pre-populated by giving a dynamic value --}}
+        <input type="text" name="name" value="{{celebrity.name}}" />
+    </label>
+
+    <label for="genre">Occupation:
+        <input type="text" name="genre" value="{{celebrity.occupation}}" />
+    </label>
+
+    <label for="plot">Catch Phrase:
+        <input type="text" name="plot" value="{{celebrity.catchPhrase}}" />
+    </label>
+
+    <button type="submit">Edit</button>
+
+</form>
