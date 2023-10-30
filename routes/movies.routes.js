@@ -4,6 +4,7 @@ const { reset } = require("nodemon");
 const router = require("express").Router();
 const Movie = require("../models/Movie.model");
 const Celebrity = require("../models/Celebrity.model");
+const { response } = require("express");
 
 // all your routes here
 
@@ -72,31 +73,43 @@ router.post("/movies/:id/delete", (req, res, next) => {
 
 // Iteration 10
 
-router.get("/movies/:id/edit", (req, res, next) => {
-  const movieId = req.params.id;
-  Movie.findById(movieId)
-    .populate("cast")
-    .then((response) => {
-      console.log(response);
-      res.render("movies/edit-movie", { movies: response });
-    })
-    .catch((err) => console.log(err));
+// router.get("/movies/:id/edit", (req, res, next) => {
+//   const movieId = req.params.id;
+//   Movie.findById(movieId)
+//     .populate("cast")
+//     .then((response) => {
+//       console.log(response);
+//       res.render("movies/edit-movie", { movies: response });
+//     })
+//     .catch((err) => console.log(err));
+// });
+
+router.get("/movies/:id/edit", async (req, res) => {
+  const movies = await Movie.findById(req.params.id);
+  const allCelebs = await Celebrity.find();
+  const copyCelebs = JSON.parse(JSON.stringify(allCelebs));
+  const selectedCast = copyCelebs.map((celeb) => {
+    if (movies.cast.includes(celeb._id)) {
+      celeb.selected = "selected";
+    } else {
+      celeb.selected = "";
+    }
+    return celeb;
+  });
+  console.log("selected cast", selectedCast);
+  res.render("movies/edit-movie", { movies, selectedCast });
 });
 
 router.post("/movies/:id/edit", (req, res, next) => {
   const movieId = req.params.id;
-  const { title, description, plot, cast } = req.body;
-  // findByIdAndUpdate needs 2 arguments (which movie you want changed, which do you want changed)
-  // PLUS A 3RD ARGUMENT: {new: true}
-  Movie.findByIdAndUpdate(
-    movieId,
-    { title, description, plot, cast },
-    {
-      new: true,
-    }
-  )
+  // findByIdAndUpdate needs 2 arguments (which movie you want changed, which info do you want changed)
+  // PLUS A 3RD ARGUMENT: {new: true}. Otherwise data won't get updated
+  Movie.findByIdAndUpdate(movieId, req.body, {
+    new: true,
+  })
     .then((response) => {
-      res.redirect("/movies");
+      console.log(response);
+      res.redirect(`/movies/${movieId}`);
     })
     .catch((err) => {
       console.log(err);

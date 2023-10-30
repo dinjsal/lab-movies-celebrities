@@ -16,8 +16,8 @@
 
     <label for="cast">Choose Cast:</label> 
         <select name="cast" id="cast" multiple>
-            {{#each allCelebs}}
-                <option value="{{this._id}}">{{this.name}}</option>
+            {{#each selectedCast}}
+                <option value="{{this._id}}" {{this.selected}}>{{this.name}}</option>
             {{/each}}
         </select>
             
