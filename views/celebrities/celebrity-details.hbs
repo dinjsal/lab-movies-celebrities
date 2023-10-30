@@ -1,13 +1,9 @@
 {{!-- bonus iteration, celebrity details --}}
 
-{{#each celebrities}}
+<h1>{{celebrity.name}}</h1>
 
-<h2>{{this.name}}</h2>
-
-<p>Occupation: {{this.occupation}}</p>
-<p>Catch Phrase: {{this.catchPhrase}}</p>
-
-{{/each}}
+<p>Occupation: {{celebrity.occupation}}</p>
+<p>Catch Phrase: {{celebrity.catchPhrase}}</p>
 
 <a href="/celebrities">Go back to Celebrities</a>
 
